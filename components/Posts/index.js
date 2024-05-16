@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Post from './Post';
 import Container from '../common/Container';
+
+//importing cont from common folder
+import cont from '../common/cont';
+//importing cont from common folder
+
 import useWindowWidth from '../hooks/useWindowWidth';
 
 const PostListContainer = styled.div(() => ({
@@ -49,6 +54,35 @@ export default function Posts() {
     fetchPost();
   }, [isSmallerDevice]);
 
+
+
+
+//Adding functionality of loading more posts
+
+useEffect(() => {
+    loadMorePost();
+  },[])
+
+  const loadMorePost = async () => {
+    setIsLoading(true);
+
+    try{
+      const {data: post} = await axios.get('/api/v1/posts' , {
+      params : {start:posts.length , limit: 5}
+    });
+    setPosts((posts)=> [...posts, ...post])
+    }catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+
+    setIsLoading(false)
+  }
+
+//Addition of loading more posts
+
+
+
+
   const handleClick = () => {
     setIsLoading(true);
 
@@ -57,12 +91,52 @@ export default function Posts() {
     }, 3000);
   };
 
+
+
+//Showing name , email and initial letters of names
+const [showDetail , setshowDetail] = useState([]);
+
+  async function pullJson() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users')
+    const responseData = await response.json()
+    console.log(responseData)
+
+    setshowDetail(responseData)
+  }
+
+
+  useEffect(()=>{
+
+   pullJson();
+
+  },[])
+
+  const getInitials = (name) => {
+    const nameParts = name.split(' ');
+    const initials = nameParts.map(part => part.charAt(0)).join('');
+    return initials;
+  };
+//Showing name , email and initial letters of names
+
+
+
+
+
   return (
     <Container>
       <PostListContainer>
         {posts.map(post => (
-          <Post post={post} />
-        ))}
+          <>
+           <cont>
+              <div>{showDetail.map(function(user){
+                       if(user.id == post.userId){
+                         return <p key = {user.id}> {getInitials(user.name)} {user.name} <br/> {user.email} </p>
+                       }
+                })}</div>
+              <Post post={post} />
+            <cont>
+          </>
+      ))}
       </PostListContainer>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>

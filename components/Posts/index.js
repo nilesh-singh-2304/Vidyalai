@@ -49,6 +49,9 @@ export default function Posts() {
     fetchPost();
   }, [isSmallerDevice]);
 
+
+
+
 //Adding functionality of loading more posts
 
 useEffect(() => {
@@ -65,6 +68,11 @@ useEffect(() => {
 
     setIsLoading(false)
   }
+
+//Addition of loading more posts
+
+
+
 
   const handleClick = () => {
     setIsLoading(true);

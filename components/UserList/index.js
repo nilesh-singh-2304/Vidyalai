@@ -125,17 +125,10 @@ const withUserData = WrappedComponent =>
     }
   };
 
-class UserList extends Component {
-  render() {
-    const {
-      users,
-      columnFields,
-      handleOnSearch,
-      handleSort,
-      sortColumn,
-      sortDirection,
-    } = this.props;
-    return (
+//Converting UserList React class component to functional component
+const UserList = ({users , columnFields , handleOnSearch , handleSort , sortColumn , sortDirection}) => {
+
+       return (
       <div>
         <Table>
           <thead>
@@ -183,7 +176,69 @@ class UserList extends Component {
         <div></div>
       </div>
     );
-  }
-}
+};
+//Converting UserList React class component to functional component
+
+
+// class UserList extends Component {
+//   render() {
+//     const {
+//       users,
+//       columnFields,
+//       handleOnSearch,
+//       handleSort,
+//       sortColumn,
+//       sortDirection,
+//     } = this.props;
+//     return (
+//       <div>
+//         <Table>
+//           <thead>
+//             <tr>
+//               {columnFields.map(field => {
+//                 return (
+//                   <th key={field.value}>
+//                     <div
+//                       onClick={() => handleSort(field.value)}
+//                       style={{ paddingBottom: 8 }}
+//                     >
+//                       {field.label}
+//                       {sortColumn === field.value &&
+//                         (sortDirection === 'asc' ? (
+//                           <span className={'sort-icon'}>▲</span>
+//                         ) : (
+//                           <span className={'sort-icon'}>▼</span>
+//                         ))}
+//                     </div>
+
+//                     {field.enableSearch ? (
+//                       <input
+//                         type={'text'}
+//                         placeholder={`Search by ${field.label}`}
+//                         name={field.value}
+//                         onChange={handleOnSearch}
+//                         style={{ padding: 6, width: 200 }}
+//                       />
+//                     ) : null}
+//                   </th>
+//                 );
+//               })}
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {users.map(user => (
+//               <tr key={user.id}>
+//                 {columnFields.map(field => (
+//                   <td key={field.value}>{user[field.value]}</td>
+//                 ))}
+//               </tr>
+//             ))}
+//           </tbody>
+//         </Table>
+//         <div></div>
+//       </div>
+//     );
+//   }
+// }
 
 export default withUserData(UserList);

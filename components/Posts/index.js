@@ -82,12 +82,52 @@ useEffect(() => {
     }, 3000);
   };
 
+
+
+//Showing name , email and initial letters of names
+const [showDetail , setshowDetail] = useState([]);
+
+  async function pullJson() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users')
+    const responseData = await response.json()
+    console.log(responseData)
+
+    setshowDetail(responseData)
+  }
+
+
+  useEffect(()=>{
+
+   pullJson();
+
+  },[])
+
+  const getInitials = (name) => {
+    const nameParts = name.split(' ');
+    const initials = nameParts.map(part => part.charAt(0)).join('');
+    return initials;
+  };
+//Showing name , email and initial letters of names
+
+
+
+
+
   return (
     <Container>
       <PostListContainer>
         {posts.map(post => (
-          <Post post={post} />
-        ))}
+          <>
+           <cont>
+              <div>{showDetail.map(function(user){
+                       if(user.id == post.userId){
+                         return <p key = {user.id}> {getInitials(user.name)} {user.name} <br/> {user.email} </p>
+                       }
+                })}</div>
+              <Post post={post} />
+            <cont>
+          </>
+      ))}
       </PostListContainer>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>

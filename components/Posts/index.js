@@ -3,6 +3,11 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Post from './Post';
 import Container from '../common/Container';
+
+//importing cont from common folder
+import cont from '../common/cont';
+//importing cont from common folder
+
 import useWindowWidth from '../hooks/useWindowWidth';
 
 const PostListContainer = styled.div(() => ({

@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+
+//Making navbar sticky on top
 const Navbar = styled('nav')(() => ({
   backgroundColor: '#333',
   color: '#fff',
   width: '100%',
-  position: 'absolute',
+  position: 'fixed',
   top: 0,
   left: 0,
   zIndex: 1000,

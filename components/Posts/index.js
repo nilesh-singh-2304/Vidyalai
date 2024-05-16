@@ -49,6 +49,23 @@ export default function Posts() {
     fetchPost();
   }, [isSmallerDevice]);
 
+//Adding functionality of loading more posts
+
+useEffect(() => {
+    loadMorePost();
+  },[])
+
+  const loadMorePost = async () => {
+    setIsLoading(true);
+
+    const {data: post} = await axios.get('/api/v1/posts' , {
+      params : {start:posts.length , limit: 5}
+    });
+    setPosts((posts)=> [...posts, ...post])
+
+    setIsLoading(false)
+  }
+
   const handleClick = () => {
     setIsLoading(true);
 

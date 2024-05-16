@@ -66,10 +66,14 @@ useEffect(() => {
   const loadMorePost = async () => {
     setIsLoading(true);
 
-    const {data: post} = await axios.get('/api/v1/posts' , {
+    try{
+      const {data: post} = await axios.get('/api/v1/posts' , {
       params : {start:posts.length , limit: 5}
     });
     setPosts((posts)=> [...posts, ...post])
+    }catch (error) {
+      console.error('Error fetching posts:', error);
+    }
 
     setIsLoading(false)
   }
